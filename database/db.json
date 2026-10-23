@@ -295,6 +295,23 @@
   ],
   "requests": [
     {
+      "id": "req-1792723586972",
+      "resourceId": "res-1792685526016",
+      "resourceTitle": "Engineering Drawing Mini Drafter",
+      "category": "engineering_instruments",
+      "type": "buy_request",
+      "status": "Handover Scheduled - Contact Shared",
+      "studentId": "user-student",
+      "studentName": "Swarup Kadam",
+      "providerId": "user-1792683900539",
+      "contactName": "Varad Khobare",
+      "contactInfo": "84462252203",
+      "location": "near trimurthy choulk",
+      "date": "2026-10-23",
+      "amount": 700,
+      "note": "Purchase request for ₹700"
+    },
+    {
       "id": "user-req-3",
       "requirementId": "req-1",
       "requirementTitle": "25 School Bags Needed for Primary & Middle School Children",
@@ -523,5 +540,22 @@
     "activeDonorsPartners": 748,
     "treesEquivalentSaved": 310
   },
-  "notifications": []
+  "notifications": [
+    {
+      "id": "notif-1792723587008-mnqh",
+      "userId": "user-1792683900539",
+      "type": "buy_request",
+      "requestId": "req-1792723586972",
+      "resourceId": "res-1792685526016",
+      "resourceTitle": "Engineering Drawing Mini Drafter",
+      "requesterId": "user-student",
+      "requesterName": "Swarup Kadam",
+      "requesterContact": "84462252203",
+      "price": 700,
+      "timestamp": "2026-10-23T02:46:27.008Z",
+      "read": true,
+      "message": "Swarup Kadam sent a purchase request for \"Engineering Drawing Mini Drafter\" at ₹700. Contact: 84462252203",
+      "readAt": "2026-10-23T02:47:13.621Z"
+    }
+  ]
 }
