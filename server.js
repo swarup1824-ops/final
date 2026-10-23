@@ -89,6 +89,10 @@ app.all('/api/*', (req, res) => {
 
 // Default fallback to index.html for Single Page Application navigation
 app.get('*', (req, res) => {
+  // Never return index.html for static files (css, js, images, etc.) to prevent MIME type errors
+  if (path.extname(req.path)) {
+    return res.status(404).type('text/plain').send(`Static asset not found: ${req.path}`);
+  }
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 

@@ -4,9 +4,29 @@
 const fs = require('fs');
 const path = require('path');
 
-const DB_PATH = process.env.DB_FILE_PATH
-  ? path.resolve(process.cwd(), process.env.DB_FILE_PATH)
-  : path.join(__dirname, '..', 'database', 'db.json');
+function getDbPath() {
+  if (process.env.DB_FILE_PATH) {
+    return path.resolve(process.cwd(), process.env.DB_FILE_PATH);
+  }
+  // On Vercel / AWS Lambda, the root is read-only so use /tmp
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    const tmpPath = path.join('/tmp', 'db.json');
+    if (!fs.existsSync(tmpPath)) {
+      try {
+        const seedPath = path.join(__dirname, '..', 'database', 'db.json');
+        if (fs.existsSync(seedPath)) {
+          fs.copyFileSync(seedPath, tmpPath);
+        }
+      } catch (e) {
+        console.warn('[Database] Could not seed /tmp/db.json:', e.message);
+      }
+    }
+    return tmpPath;
+  }
+  return path.join(__dirname, '..', 'database', 'db.json');
+}
+
+let DB_PATH = getDbPath();
 
 // Default database schema
 const DEFAULT_DB = {
@@ -32,6 +52,7 @@ const DEFAULT_DB = {
  * Ensures the database directory and file exist with valid JSON
  */
 function ensureDbExists() {
+  DB_PATH = getDbPath();
   const dir = path.dirname(DB_PATH);
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
